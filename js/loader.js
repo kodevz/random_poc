@@ -515,6 +515,6 @@
         return flixJsCallbacks;
     };
     window['flixJsCallbacks'] = getFlixCallback();
-    _flixLoader.init();
+    _flixLoader.init();  
     
 })();

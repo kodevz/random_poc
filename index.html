@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -15,22 +16,52 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    
-    
+
+
 
 </head>
 
 <body>
-    <h1>Flixmedia Inpage viewer</h1>
 
-    <div id="richmedia-container"></div>
-    <!-- <script src="/weaveroo_poc/js/loader.js" async data-flix-distributor="2162" data-flix-language="en" data-flix-ean=""
-        data-flix-mpn="10207649" data-flix-button="" data-flix-inpage="flix-inpage" data-flix-button-image=""
-        data-flix-fallback-language="" data-flix-price=""></script> -->
-    <script src="https://media.flixfacts.com/js/loader.js" async data-flix-distributor="2162" data-flix-language="en" data-flix-ean=""
-        data-flix-mpn="10207649" data-flix-button="" data-flix-inpage="flix-inpage" data-flix-button-image=""
-        data-flix-fallback-language="" data-flix-price=""></script>
-    
+    <div class="container-fluid">
+        <div class="row p-3">
+            <div class="col-md-12">
+                <h1>Inpage Veiwer</h1>
+            </div>
+            <div class="col-md-12">
+                <button type="button" class="btn btn-lg btn-primary m-1"
+                    onclick="showInpage('richmedia-container')">Flixmedia Inpage</button>
+                <button type="button" class="btn btn-lg btn-secondary m-1" onclick="showInpage('iframe-form')">Weaveroo
+                    Inpage</button>
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-md-6">
+                <div id="richmedia-container" class="inpages" style="display: none;">
+                    <script src="https://media.flixfacts.com/js/loader.js" async data-flix-distributor="2162"
+                        data-flix-language="en" data-flix-ean="" data-flix-mpn="10207649" data-flix-button=""
+                        data-flix-inpage="flix-inpage" data-flix-button-image="" data-flix-fallback-language=""
+                        data-flix-price=""></script>
+                </div>
+                <weaver d="11687" p="SBSES8483" l="en" mpid="1234" mpn="1234" ean="1234" sku="1234" br="sony"
+                    id="iframe-form" class="inpages">
+                    <h2>Test Pages</h2>
+                </weaver>
+            </div>
+        </div>
+    </div>
+    <script src="https://weaver-testing.s3.ap-south-1.amazonaws.com/build.js"></script>
+
+    <script>
+        function showInpage(id) {
+            $('.inpages').hide();
+            $(`#${id}`).show();
+        }
+
+        $(document).ready(function () {
+            $('.inpages').hide();
+        });
+    </script>
 </body>
 
 </html>

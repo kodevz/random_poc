@@ -57,7 +57,7 @@
                             break;
                         }
                     }
-                   
+                    
                     this.errLog();
                      
                     this.parse();
@@ -66,18 +66,25 @@
 
                    
 
+
                     var d_id = this.mappingTable['data-flix-distributor']['value'];
                     var ab_res_id = 'ab_' + d_id;
                     window.flixJsCallbacks[ab_res_id] = null;
+
+                    
                     if (typeof URLSearchParams == 'function') {
                         var urlParams = new URLSearchParams(window.location.search);
+                        
                         var ab_url = 'https://dkht7e625fi95.cloudfront.net/track/';
                         if (location.href.search('flix-local') !== -1) ab_url = 'http://localhost/hotspot-ab/';
                         var dt_ids = {};
-
+        
                         if (this.abc && typeof this.abc[d_id] != "undefined") { dt_ids[d_id] = this.abc[d_id]; }
                         if (urlParams.get('ab_d_id') && urlParams.get('ab_t_id')) { d_id = urlParams.get('ab_d_id'); dt_ids[d_id] = [urlParams.get('ab_t_id')]; }
+
+                        
                         if (typeof dt_ids[d_id] !== "undefined") {
+                            
                             for (var i = 0; i < dt_ids[d_id].length; i++) {
                                 var xhr = new XMLHttpRequest();
                                 xhr.onreadystatechange = function () {
@@ -93,11 +100,14 @@
                         this.mappingTable['data-flix-mpn']['value'] = this.mappingTable['data-flix-sku']['value'];
                     }
 
+                    
                     var autoloaded_modules = this.mappingTable['data-flix-autoload']['value'] == null ? [] : this.mappingTable['data-flix-autoload']['value'].replace(' ', '').split(',');
+
                     if (["0", "false"].indexOf(this.mappingTable['data-flix-autoload']['value']) === -1) {
-                        if (autoloaded_modules.length === 0 || autoloaded_modules.indexOf('minisite') > -1) this.load('button');
+
+                       // if (autoloaded_modules.length === 0 || autoloaded_modules.indexOf('minisite') > -1) this.load('button');
                         if (autoloaded_modules.length === 0 || autoloaded_modules.indexOf('inpage') > -1) this.load('inpage');
-                        if (autoloaded_modules.length === 0 || autoloaded_modules.indexOf('hotspot') > -1) this.load('hotspot');
+                        //if (autoloaded_modules.length === 0 || autoloaded_modules.indexOf('hotspot') > -1) this.load('hotspot');
                     }
 
                 }
@@ -168,10 +178,14 @@
                 return true;
             },
             _s: function (url, append_dom, options) {
+                
                 var _fscript = document.createElement('script');
                 _fscript.setAttribute("type", "text/javascript");
                 _fscript.setAttribute("src", url);
                 _fscript.async = "true";
+
+                console.log(_fscript);
+                //return;
                 for (var i in options) { i == "id" ? _fscript.id = options[i] : _fscript.setAttribute(i, options[i]); }
                 append_dom.appendChild(_fscript);
                 _fscript.addEventListener('error', function () {
@@ -181,8 +195,7 @@
                 }, false);
                 return _fscript;
             },
-            _jx: function (url, append_dom, et_type) {
-                
+            _jx: function (url, append_dom, et_type) {  
                 try {
                     var
                         u = "//media.flixcar.com/perf/log.gif"
@@ -275,6 +288,7 @@
                 return xhr;
             },
             load: function (type) {
+               
                 
                 var autoloaded_modules = this.getAutoloadedModules();
                 if (this.ismobile() && (type == 'button' || type == 'hotspot')) {
@@ -301,6 +315,8 @@
 
                 try {
                     var url = this.getUrl(type);
+
+                    
                     var options = {};
                     var scache = this.isAb(type) ? "&fcache=" + Math.random() : "";
                     scache += "&ext=.js";
@@ -332,6 +348,8 @@
                             this._jx(url + scache, document.getElementById(elem), et);
                         }
                         else {
+                            //console.log(url)
+                            
                             this._s(url + scache, document.getElementById(elem), options);
                         }
                     }
@@ -426,6 +444,7 @@
             parse: function () {
                 
                 var qmark = this.instance.src.indexOf('?');
+                
                 if (qmark != -1) {
                     var itms = this.instance.src.substr(qmark + 1).split("&");
                     for (var i = 0; i < itms.length; i++) {
@@ -460,10 +479,13 @@
                 return b ? b.pop() : '';
             },
             setGvid: function () {
+ 
                 if (this.getCookieValue('flixgvid')) {
                     window.flixJsCallbacks['gvid'] = this.getCookieValue('flixgvid');
                     return
                 }
+
+                
                 if (document.getElementById('data-flix-t-script')) return;
                 window['flixgvid'] = function (obj) {
                     try {
@@ -472,6 +494,8 @@
                         document.cookie = 'flixgvid=' + obj['gvid'] + '; path=/; SameSite=None;Secure';
                     } catch (e) { }
                 };
+
+            
                 var lambdaDistributorIds = { "3986": 1, "6933": 1, "13395": 1 };
                 var switch_base = lambdaDistributorIds.hasOwnProperty(this.mappingTable['data-flix-distributor']['value']) ? '//media.flixcar.com/gvid' : '//media.flixcar.com/gvid';
                 this._s(switch_base, document.getElementsByTagName('head')[0], { "id": "data-flix-t-script" });

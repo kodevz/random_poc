@@ -32,26 +32,28 @@
             <div class="col-md-12">
                 <button type="button" class="btn btn-lg btn-primary m-1"
                     onclick="showInpage('richmedia-container')">Flixmedia Inpage</button>
-                <button type="button" class="btn btn-lg btn-secondary m-1" onclick="showInpage('iframe-form')">Weaveroo
+                <button type="button" class="btn btn-lg btn-secondary m-1" onclick="showInpage('weaver-container')">Weaveroo
                     Inpage</button>
             </div>
         </div>
         <div class="row justify-content-md-center">
-            <div class="col-md-6">
-                <div id="richmedia-container" class="inpages" style="display: none;">
+            <div class="col-md-6" >
+                <div id="richmedia-container" class="inpages flix-media">
                     <!-- https://media.flixfacts.com/js/loader.js -->
-                    <script src="js/loader.js" async data-flix-distributor="2162"
-                        data-flix-language="en" data-flix-ean="" data-flix-mpn="10207649" data-flix-button=""
-                        data-flix-inpage="flix-inpage" data-flix-button-image="" data-flix-fallback-language=""
-                        data-flix-price=""></script>
+                    <script src="js/loader.js" async data-flix-distributor="2162" data-flix-language="en"
+                        data-flix-ean="" data-flix-mpn="10207649" data-flix-button="" data-flix-inpage="flix-inpage"
+                        data-flix-button-image="" data-flix-fallback-language="" data-flix-price=""></script>
                 </div>
 
-                <weaver d=11687 p="SBSES8483" l="en" mpid=1234 mpn=1234 ean=1234 sku=1234 br="sony" id="iframe-form"
-                    mp=1 class="inpages">
-                </weaver>
+                <div class="inpages" id="weaver-container" >
+                    <weaver d=11687 p="SBSES8483" l="en" mpid=1234 mpn=1234 ean=1234 sku=1234 br="sony" id="iframe-form"
+                        mp=1 >
+                    </weaver>
+                </div>
             </div>
         </div>
     </div>
+    <!-- <script src="js/build.js"></script> -->
     <script src="https://weaver-testing.s3.ap-south-1.amazonaws.com/buildNew.js"></script>
     <!-- <script src="https://weaver-testing.s3.ap-south-1.amazonaws.com/build2.js"></script> -->
 
@@ -62,7 +64,7 @@
         }
 
         $(document).ready(function () {
-            $('.inpages').hide();
+            $('#richmedia-container').hide();
         });
     </script>
 </body>
